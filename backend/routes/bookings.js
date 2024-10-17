@@ -41,11 +41,14 @@ router.post('/request', auth(), async (req, res) => {
       pickup,
       dropoff,
       estimatedCost,
+      itemWeight,
       vehicleType,
       jobStatus: 'Pending',
     })
 
     await booking.save()
+
+    console.log('BOOKING 4333i:', vehicleType, booking)
 
     const io = getIO()
     // Emit event to available drivers (based on proximity and vehicleType) about new booking

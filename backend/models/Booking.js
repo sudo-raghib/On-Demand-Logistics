@@ -25,6 +25,10 @@ const bookingSchema = new Schema({
     type: Number,
     required: true,
   },
+  itemWeight: {
+    type: Number,
+    required: true,
+  },
   jobStatus: {
     type: String,
     enum: [

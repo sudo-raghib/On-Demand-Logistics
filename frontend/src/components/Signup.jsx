@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { postData } from "../../utils/api";
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { postData } from '../../utils/api'
 import {
   Box,
   Button,
@@ -10,37 +10,38 @@ import {
   MenuItem,
   Select,
   styled,
-} from "@mui/material";
+} from '@mui/material'
+import { VEHICLE_TYPES } from '../constants'
 
-const StyledForm = styled("form")(() => {
+const StyledForm = styled('form')(() => {
   return {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    gap: "2rem",
-  };
-});
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    gap: '2rem',
+  }
+})
 
-const CenteredHeading = styled("h2")(() => {
+const CenteredHeading = styled('h2')(() => {
   return {
-    textAlign: "center",
-  };
-});
+    textAlign: 'center',
+  }
+})
 
 const Signup = () => {
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [password, setPassword] = useState("");
-  const [userType, setUserType] = useState("user");
-  const [vehicleType, setVehicleType] = useState("car");
-  const navigate = useNavigate();
+  const [name, setName] = useState('')
+  const [phone, setPhone] = useState('')
+  const [password, setPassword] = useState('')
+  const [userType, setUserType] = useState('user')
+  const [vehicleType, setVehicleType] = useState('car')
+  const navigate = useNavigate()
 
   const handleSignup = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     try {
       const response = await postData(
-        "http://localhost:8080/api/users/register",
+        'http://localhost:8080/api/users/register',
         {
           name,
           phone,
@@ -49,36 +50,36 @@ const Signup = () => {
           vehicleType,
         },
         false
-      );
+      )
 
-      const data = await response.json();
-      const { token, userRole } = data;
+      const data = await response.json()
+      const { token, userRole } = data
 
       // Store token and userType in localStorage
-      localStorage.setItem("token", token);
-      localStorage.setItem("userType", userRole);
+      localStorage.setItem('token', token)
+      localStorage.setItem('userType', userRole)
 
-      console.log("Signup successful", userRole);
+      console.log('Signup successful', userRole)
 
       // Redirect user based on userType
-      navigate("/");
+      navigate('/')
     } catch (error) {
-      console.error("Signup failed, please try again.", error);
+      console.error('Signup failed, please try again.', error)
     }
-  };
+  }
 
   return (
     <Box
       sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100vh",
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh',
       }}
     >
       <Box
         sx={{
-          width: "30%",
+          width: '30%',
         }}
       >
         <CenteredHeading>Sign Up</CenteredHeading>
@@ -120,7 +121,7 @@ const Signup = () => {
               <MenuItem value="admin">Admin</MenuItem>
             </Select>
           </FormControl>
-          {userType === "driver" && (
+          {userType === 'driver' && (
             <FormControl fullWidth>
               <InputLabel id="vehicle-type">Vehicle Type</InputLabel>
               <Select
@@ -129,9 +130,13 @@ const Signup = () => {
                 value={vehicleType}
                 onChange={(e) => setVehicleType(e.target.value)}
               >
-                <MenuItem value="car">Car</MenuItem>
-                <MenuItem value="bike">Bike</MenuItem>
-                <MenuItem value="auto">Auto</MenuItem>
+                {VEHICLE_TYPES.map((vehicle, index) => {
+                  return (
+                    <MenuItem key={index} value={vehicle}>
+                      {vehicle}
+                    </MenuItem>
+                  )
+                })}
               </Select>
             </FormControl>
           )}
@@ -143,7 +148,7 @@ const Signup = () => {
         </StyledForm>
       </Box>
     </Box>
-  );
-};
+  )
+}
 
-export default Signup;
+export default Signup

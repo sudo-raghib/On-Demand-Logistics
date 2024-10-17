@@ -2,14 +2,25 @@
 import { useEffect, useState } from 'react'
 import { getData, putData } from '../../../utils/api'
 import {
+  Box,
+  Card,
   Container,
   FormControl,
   InputLabel,
   MenuItem,
   Select,
+  styled,
 } from '@mui/material'
 import { Link, useParams } from 'react-router-dom'
 import { JOB_STATUS } from '../../constants'
+import useCurrentLocation from '../../hooks/useCurrentLocation'
+
+const StyledCard = styled(Card)(() => {
+  return {
+    padding: '0.5rem',
+    borderRadius: '8px',
+  }
+})
 
 const JobStatus = () => {
   const { bookingId } = useParams()
@@ -40,6 +51,21 @@ const JobStatus = () => {
     fetchBookingDetails()
   }, [bookingId])
 
+  async function updateDriverLocation({ latitude, longitude }) {
+    try {
+      const response = await putData(
+        `http://localhost:8080/api/drivers/location/${bookingId}`,
+        { latitude, longitude }
+      )
+
+      if (!response.ok) {
+        throw new Error('Failed to update driver location')
+      }
+    } catch (error) {
+      console.error('Error updating driver location:', error)
+    }
+  }
+
   const handleStatusChange = async (event) => {
     const newStatus = event.target.value
     setJobStatus(newStatus)
@@ -60,49 +86,55 @@ const JobStatus = () => {
     }
   }
 
+  useCurrentLocation({ onNewLocation: updateDriverLocation })
+
   const { pickup, dropoff, user, estimatedCost } = bookingDetails || {}
 
   return (
     <Container>
-      <h1>Current Booking</h1>
-      <Container>
-        <h3>Booking Details</h3>
-        <p>
-          Pickup: <strong>{pickup?.address}</strong>
-        </p>
-        <p>
-          Dropoff: <strong>{dropoff?.address}</strong>
-        </p>
-        <p>
-          Estimated Cost: <strong>${estimatedCost}</strong>
-        </p>
-      </Container>
-      <Container>
-        <h3>Customer Information</h3>
-        {user && (
+      <h1>Driver Dasboard</h1>
+      <h2>Current Booking</h2>
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+        <StyledCard raised>
+          <h3>Booking Details</h3>
           <p>
-            {user.name} - <Link to={`tel:${user.phone}`}>📞 {user.phone}</Link>
+            Pickup: <strong>{pickup?.address}</strong>
           </p>
-        )}
-      </Container>
-      <Container>
-        <h3>Update Status</h3>
-        <FormControl fullWidth>
-          <InputLabel id="driver-job-status">Status</InputLabel>
-          <Select
-            labelId="driver-job-status"
-            value={jobStatus}
-            label="Status"
-            onChange={handleStatusChange}
-          >
-            {Object.values(JOB_STATUS).map((status, index) => (
-              <MenuItem key={index} value={status}>
-                {status}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </Container>
+          <p>
+            Dropoff: <strong>{dropoff?.address}</strong>
+          </p>
+          <p>
+            Estimated Cost: <strong>${estimatedCost}</strong>
+          </p>
+        </StyledCard>
+        <StyledCard raised>
+          <h3>Customer Details</h3>
+          {user && (
+            <p>
+              {user.name} -{' '}
+              <Link to={`tel:${user.phone}`}>📞 {user.phone}</Link>
+            </p>
+          )}
+        </StyledCard>
+        <StyledCard raised>
+          <h3>Update Shipment Status</h3>
+          <FormControl fullWidth>
+            <InputLabel id="driver-job-status">Status</InputLabel>
+            <Select
+              labelId="driver-job-status"
+              value={jobStatus}
+              label="Status"
+              onChange={handleStatusChange}
+            >
+              {Object.values(JOB_STATUS).map((status, index) => (
+                <MenuItem key={index} value={status}>
+                  {status}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </StyledCard>
+      </Box>
     </Container>
   )
 }

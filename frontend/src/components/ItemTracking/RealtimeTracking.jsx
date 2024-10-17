@@ -1,34 +1,44 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { Card, styled } from '@mui/material'
 
-import socket from "../../../utils/socketConnection";
+import socket from '../../../utils/socketConnection'
+
+const StyledCard = styled(Card)(() => {
+  return {
+    padding: '0.5rem',
+    borderRadius: '8px',
+  }
+})
 
 function RealtimeTracking({ bookingDetails }) {
-  const [location, setLocation] = useState({ lat: null, lng: null });
+  const [location, setLocation] = useState({ latitude: null, longitude: null })
 
   useEffect(() => {
-    // Start tracking driver location
-    socket.on("driver-location", (location) => {
-      setLocation(location);
-    });
+    socket.on('driver-location', (location) => {
+      console.log('Updated Driver location:', location)
+      setLocation(location)
+    })
 
     return () => {
-      socket.off("driver-location");
-    };
-  }, []);
+      socket.off('driver-location')
+    }
+  }, [])
 
   return (
-    <>
+    <StyledCard raised>
       <div>
-        <h2>Driver Location</h2>
-        {/* Display driver's location on a map */}
-        {/* <Map lat={location.lat} lng={location.lng} /> */}
-        <p>Latitude: {location.lat}</p>
-        <p>Longitude: {location.lng}</p>
+        <h2>Driver Realtime Location Tracking</h2>
+        {/* TODO: Show driver's location on a map */}
+        <p>
+          <strong>Latitude:</strong> {location.latitude || 'Loading...'}
+        </p>
+        <p>
+          <strong>Longitude:</strong> {location.longitude || 'Loading...'}
+        </p>
       </div>
-      <Link to={`tel:${bookingDetails.driver.phone}`}>Call Driver</Link>
-    </>
-  );
+    </StyledCard>
+  )
 }
 
-export default RealtimeTracking;
+export default RealtimeTracking

@@ -14,7 +14,6 @@ const auth = () => {
         const decoded = verify(token, 'your_jwt_secret')
 
         req.user = await User.findById(decoded.id).select('-password')
-        console.log('AUTH::', decoded, req.user)
 
         if (!req.user) {
           return res.status(401).json({ message: 'Not authorized' })

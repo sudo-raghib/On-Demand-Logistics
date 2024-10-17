@@ -11,13 +11,12 @@ import {
   Select,
 } from '@mui/material'
 import SearchDriver from './SearchDriver'
+import { VEHICLE_TYPES } from '../constants'
 
 const dummyCoordinates = {
   pickup: [28.7041, 77.1025],
   dropoff: [19.076, 72.8777],
 }
-
-const vehicleTypes = ['SmallVan', 'MediumTruck', 'LargeTruck']
 
 function BookingForm() {
   const [pickup, setPickup] = useState('')
@@ -89,7 +88,7 @@ function BookingForm() {
             address: dropoff,
             coordinates: dummyCoordinates.dropoff, // Dummy coordinates
           },
-          itemWeight,
+          itemWeight: parseInt(itemWeight),
           vehicleType,
         }
       )
@@ -162,7 +161,7 @@ function BookingForm() {
             label="Vehicle Type"
             onChange={(e) => changeRequestBooking(e, setVehicleType)}
           >
-            {vehicleTypes.map((vehicle, index) => (
+            {VEHICLE_TYPES.map((vehicle, index) => (
               <MenuItem key={index} value={vehicle}>
                 {vehicle}
               </MenuItem>

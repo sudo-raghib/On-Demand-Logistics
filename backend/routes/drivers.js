@@ -8,16 +8,20 @@ const auth = require('../middleware/auth')
 const { getIO } = require('../utils/socket')
 
 // Update Driver Location
-router.put('/location', auth('driver'), async (req, res) => {
-  const { lat, lng } = req.body
+router.put('/location/:bookingId', auth(), async (req, res) => {
+  const { bookingId } = req.params
+  const { latitude, longitude } = req.body
   try {
-    const driver = await Driver.findOne({ userId: req.user._id })
-    if (!driver) return res.status(404).json({ message: 'Driver not found' })
+    // TODO: Update driver location in Time Series DB
 
-    driver.location = { lat, lng }
-    await driver.save()
+    const io = getIO()
+    // Notify the user that their booking has been accepted
+    io.to(`booking_${bookingId}`).emit('driver-location', {
+      latitude,
+      longitude,
+    })
 
-    res.json({ message: 'Location updated', driver })
+    res.json({ message: 'Location updated' })
   } catch (err) {
     res.status(500).json({ message: err.message })
   }

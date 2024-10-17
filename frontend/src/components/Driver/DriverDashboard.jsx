@@ -1,9 +1,16 @@
 import { useEffect, useState } from 'react'
-import { Box, Button, Card, Container } from '@mui/material'
+import { Box, Button, Card, Container, styled } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
 import Socket from '../../../utils/socketConnection'
 import { putData } from '../../../utils/api'
+
+const StyledCard = styled(Card)(() => {
+  return {
+    padding: '0.5rem',
+    borderRadius: '8px',
+  }
+})
 
 const DriverDashboard = () => {
   // State to store booking requests
@@ -54,13 +61,14 @@ const DriverDashboard = () => {
 
   return (
     <Container>
-      <h1>Available Booking Requests</h1>
+      <h1>Driver Dasboard</h1>
+      <h2>Available Booking Requests</h2>
       {bookingRequests.length === 0 ? (
         <p>No booking requests available</p>
       ) : (
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           {bookingRequests.map((booking) => (
-            <Card key={booking._id} sx={{ padding: '1rem' }}>
+            <StyledCard raised key={booking._id} sx={{ padding: '1rem' }}>
               <p>
                 Pickup: {booking.pickup.address} <br />
                 Dropoff: {booking.dropoff.address} <br />
@@ -76,7 +84,7 @@ const DriverDashboard = () => {
               <Button onClick={() => handleRejectBooking(booking._id)}>
                 Reject Booking
               </Button>
-            </Card>
+            </StyledCard>
           ))}
         </Box>
       )}

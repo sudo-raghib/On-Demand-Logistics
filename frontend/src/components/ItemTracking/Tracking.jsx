@@ -4,8 +4,7 @@ import { useParams } from 'react-router-dom'
 import BookingStatus from './BookingStatus'
 import RealtimeTracking from './RealtimeTracking'
 import { getData } from '../../../utils/api'
-import { Chip, Container } from '@mui/material'
-import { JOB_STATUS } from '../../constants'
+import { Box, Chip, Container } from '@mui/material'
 import socket from '../../../utils/socketConnection'
 
 function Tracking() {
@@ -35,8 +34,6 @@ function Tracking() {
 
   useEffect(() => {
     socket.on('job-status-update', (data) => {
-      console.log('USERR: Job status updated:', data)
-
       setBookingDetails((prevDetails) => ({
         ...prevDetails,
         jobStatus: data.jobStatus,
@@ -53,14 +50,17 @@ function Tracking() {
   return (
     <Container>
       <h2>
-        Booking Status <Chip label={jobStatus} variant="outlined" />
+        Booking Status{' '}
+        <Chip
+          sx={{ backgroundColor: '#04D4F0' }}
+          label={jobStatus}
+          variant="outlined"
+        />
       </h2>
-
-      {jobStatus === JOB_STATUS.IN_TRANSIT ? (
-        <RealtimeTracking bookingDetails={bookingDetails} />
-      ) : (
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
         <BookingStatus bookingDetails={bookingDetails} />
-      )}
+        <RealtimeTracking bookingDetails={bookingDetails} />
+      </Box>
     </Container>
   )
 }

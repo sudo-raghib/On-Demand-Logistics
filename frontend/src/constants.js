@@ -8,3 +8,7 @@ export const JOB_STATUS = {
   ARRIVED_AT_DROPOFF_LOCATION: 'Arrived at Drop-off Location',
   DELIVERED: 'Delivered',
 }
+
+export const VEHICLE_TYPES = ['SmallVan', 'MediumTruck', 'LargeTruck']
+
+export const DRIVER_LOCATION_UPDATE_INTERVAL = 60000
