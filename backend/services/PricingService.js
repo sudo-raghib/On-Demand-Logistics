@@ -15,8 +15,6 @@ const calculatePrice = async (
     dropOffLocation.coordinates
   )
 
-  console.log('Distance:', distance, vehicleType)
-
   // Step 2: Retrieve base fare, per kilometer rate, per kilogram rate from PriceFactor model
   const pricing = await PriceFactor.findOne({ vehicleType })
 

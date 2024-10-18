@@ -48,10 +48,8 @@ router.post('/request', auth(), async (req, res) => {
 
     await booking.save()
 
-    console.log('BOOKING 4333i:', vehicleType, booking)
-
     const io = getIO()
-    // Emit event to available drivers (based on proximity and vehicleType) about new booking
+    // Emit event to available drivers about new booking
     io.emit('new-booking-request', booking)
 
     res.status(201).json({ bookingId: booking._id })
@@ -65,7 +63,6 @@ router.post('/request', auth(), async (req, res) => {
 router.get('/:bookingId', auth(), async (req, res) => {
   const { bookingId } = req.params
   try {
-    // Find booking and populate driver details
     const booking = await Booking.findById(bookingId)
       .select(
         'pickup dropoff itemWeight estimatedCost jobStatus driverId userId'

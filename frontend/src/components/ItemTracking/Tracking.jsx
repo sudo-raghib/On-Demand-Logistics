@@ -12,7 +12,6 @@ function Tracking() {
   const [bookingDetails, setBookingDetails] = useState(null)
 
   useEffect(() => {
-    // Fetch booking details once confirmed
     const fetchBookingDetails = async () => {
       try {
         const response = await getData(
@@ -20,8 +19,6 @@ function Tracking() {
         )
 
         const data = await response.json()
-
-        console.log('Booking details:', data)
 
         setBookingDetails(data)
       } catch (error) {

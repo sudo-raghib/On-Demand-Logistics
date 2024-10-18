@@ -1,5 +1,3 @@
-// index.js
-
 const express = require('express')
 const { createServer } = require('http')
 const socketIo = require('socket.io')
@@ -35,7 +33,7 @@ app.use('/api/drivers', driverRoutes)
 app.use('/api/bookings', bookingRoutes)
 app.use('/api/admin', adminRoutes)
 
-// Schedule the task every 5 minutes
+// Schedule the task of Updating Demand data based on surge every 5 minutes
 cron.schedule('*/5 * * * *', () => {
   console.log('Updating demand data...')
   updateDemandData().catch((error) =>

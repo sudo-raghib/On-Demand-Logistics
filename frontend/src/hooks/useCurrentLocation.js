@@ -21,9 +21,9 @@ export default function useCurrentLocation({ onNewLocation }) {
       const intervalId = setInterval(
         updateLocation,
         DRIVER_LOCATION_UPDATE_INTERVAL
-      ) // Update location every 5 seconds
+      )
 
-      return () => clearInterval(intervalId) // Cleanup interval on component unmount
+      return () => clearInterval(intervalId)
     }
   }, [])
 }

@@ -1,5 +1,3 @@
-// routes/drivers.js
-
 const { Router } = require('express')
 const router = Router()
 const Booking = require('../models/Booking')
@@ -51,7 +49,7 @@ router.put('/accept/:bookingId', auth(), async (req, res) => {
     }
 
     // Assign the driver to the booking and update the status
-    booking.driverId = driver._id // Use the driver's ID
+    booking.driverId = driver._id
     booking.jobStatus = 'Accepted'
     driver.availabilityStatus = 'Busy'
 
@@ -102,7 +100,6 @@ router.put('/bookings/:bookingId/status', auth(), async (req, res) => {
     // Update the job status
     booking.jobStatus = jobStatus
 
-    // Optionally update jobStatus if job is completed
     if (jobStatus === 'En Route to Pickup') booking.pickupTime = new Date()
     if (jobStatus === 'Delivered') {
       booking.deliveryTime = new Date()

@@ -1,32 +1,7 @@
-const Driver = require("../models/Driver");
+const Driver = require('../models/Driver')
 
 const assignDriver = async (booking) => {
-  const { pickupLocation, vehicleType } = booking;
+  // TODO: Assign the driver to a consignment based on proximity and vehicle type
+}
 
-  // Find nearby available drivers
-  const drivers = await Driver.find({
-    availabilityStatus: 'Available',
-    'currentLocation': {
-      $nearSphere: {
-        $geometry: {
-          type: 'Point',
-          coordinates: [pickupLocation.coordinates[0], pickupLocation.coordinates[1]],
-        },
-        $maxDistance: 10000, // 10 km radius
-      },
-    },
-    vehicleType,
-  }).limit(10);
-
-  if (drivers.length > 0) {
-    // Assign the first available driver
-    const driver = drivers[0];
-    driver.availabilityStatus = 'Busy';
-    await driver.save();
-    return driver;
-  } else {
-    return null;
-  }
-};
-
-module.exports = { assignDriver };
+module.exports = { assignDriver }

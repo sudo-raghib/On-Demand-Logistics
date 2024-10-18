@@ -13,7 +13,7 @@ const setupPricingData = async () => {
         vehicleType: 'SmallVan',
         baseFare: 5.0,
         perKilometerRate: 1.2,
-        perKilogramRate: 0.5, // New field for per kilogram rate
+        perKilogramRate: 0.5,
       },
       {
         vehicleType: 'MediumTruck',
@@ -35,11 +35,9 @@ const setupPricingData = async () => {
       })
       if (!exists) {
         await PriceFactor.create(factor)
-        console.log(`Inserted pricing for ${factor.vehicleType}`)
       } else {
         // Update existing record with new pricing factors
         await PriceFactor.updateOne({ vehicleType: factor.vehicleType }, factor)
-        console.log(`Updated pricing for ${factor.vehicleType}`)
       }
     }
   } catch (error) {

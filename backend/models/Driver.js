@@ -23,7 +23,6 @@ const driverSchema = new Schema({
     },
     coordinates: [Number],
   },
-  // Enable GeoJSON indexing
 })
 
 driverSchema.index({ currentLocation: '2dsphere' })

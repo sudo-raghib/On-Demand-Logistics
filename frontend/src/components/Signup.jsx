@@ -55,13 +55,9 @@ const Signup = () => {
       const data = await response.json()
       const { token, userRole } = data
 
-      // Store token and userType in localStorage
       localStorage.setItem('token', token)
       localStorage.setItem('userType', userRole)
 
-      console.log('Signup successful', userRole)
-
-      // Redirect user based on userType
       navigate('/')
     } catch (error) {
       console.error('Signup failed, please try again.', error)

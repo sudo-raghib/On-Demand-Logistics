@@ -13,6 +13,7 @@ import {
 import SearchDriver from './SearchDriver'
 import { VEHICLE_TYPES } from '../constants'
 
+// Dummy coordinates
 const dummyCoordinates = {
   pickup: [28.7041, 77.1025],
   dropoff: [19.076, 72.8777],
@@ -36,7 +37,7 @@ function BookingForm() {
     }
   }, [navigate])
 
-  // request the estimated cost
+  // request for estimated cost
   const handleGetEstimate = async () => {
     try {
       setLoading(true)
@@ -46,11 +47,11 @@ function BookingForm() {
         {
           pickup: {
             address: pickup,
-            coordinates: dummyCoordinates.pickup, // Dummy coordinates
+            coordinates: dummyCoordinates.pickup,
           },
           dropoff: {
             address: dropoff,
-            coordinates: dummyCoordinates.dropoff, // Dummy coordinates
+            coordinates: dummyCoordinates.dropoff,
           },
           itemWeight,
           vehicleType,
@@ -82,11 +83,11 @@ function BookingForm() {
         {
           pickup: {
             address: pickup,
-            coordinates: dummyCoordinates.pickup, // Dummy coordinates
+            coordinates: dummyCoordinates.pickup,
           },
           dropoff: {
             address: dropoff,
-            coordinates: dummyCoordinates.dropoff, // Dummy coordinates
+            coordinates: dummyCoordinates.dropoff,
           },
           itemWeight: parseInt(itemWeight),
           vehicleType,

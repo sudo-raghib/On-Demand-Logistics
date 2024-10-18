@@ -1,4 +1,3 @@
-// BookingStatus.js
 import { Container } from '@mui/material'
 import { useState, useEffect } from 'react'
 
@@ -12,9 +11,7 @@ function SearchDriver({ bookingId }) {
     // Join a room for the user to receive updates related to their bookings
     socket.emit('join-room', `booking_${bookingId}`)
 
-    // Listen for the 'booking-accepted' event
     socket.on('booking-accepted', (data) => {
-      console.log('Booking accepted:', data)
       setDriverInfo({
         driver: data.driver,
         driverPhone: data.driverPhone,
@@ -22,7 +19,6 @@ function SearchDriver({ bookingId }) {
       })
     })
 
-    // Clean up the socket connection on component unmount
     return () => {
       socket.off('booking-accepted')
     }

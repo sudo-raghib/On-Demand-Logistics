@@ -13,7 +13,6 @@ const StyledCard = styled(Card)(() => {
 })
 
 const DriverDashboard = () => {
-  // State to store booking requests
   const [bookingRequests, setBookingRequests] = useState([])
   const navigate = useNavigate()
 
@@ -22,7 +21,6 @@ const DriverDashboard = () => {
   }
 
   useEffect(() => {
-    // Listen for 'new-booking-request' event
     Socket.on('new-booking-request', (booking) => {
       displayBookingToDriver(booking)
     })

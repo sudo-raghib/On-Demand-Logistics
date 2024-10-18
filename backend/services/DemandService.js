@@ -7,18 +7,18 @@ const getDemandMultiplier = async (region) => {
   })
 
   if (!demandData) {
-    return 1 // No demand data, normal pricing
+    return 1 // If no demand data, normal pricing will be applied
   }
 
   const { requests, availableDrivers } = demandData
 
-  const demandSupplyRatio = requests / (availableDrivers || 1) // Avoid division by zero
+  const demandSupplyRatio = requests / (availableDrivers || 1)
 
   let multiplier = 1 // Base multiplier
 
   if (demandSupplyRatio > 1) {
-    multiplier += (demandSupplyRatio - 1) * 0.2 // 20% increase per unit over 1
-    multiplier = Math.min(multiplier, 3) // Maximum 3x surge
+    multiplier += (demandSupplyRatio - 1) * 0.2 // We are doing 20% increase per unit over 1
+    multiplier = Math.min(multiplier, 3) // Setting Maximum 3x surge limit
   }
 
   return multiplier

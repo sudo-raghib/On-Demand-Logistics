@@ -1,4 +1,3 @@
-// DriverJobStatusComponent.js
 import { useEffect, useState } from 'react'
 import { getData, putData } from '../../../utils/api'
 import {
