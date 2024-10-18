@@ -11,4 +11,4 @@ export const JOB_STATUS = {
 
 export const VEHICLE_TYPES = ['SmallVan', 'MediumTruck', 'LargeTruck']
 
-export const DRIVER_LOCATION_UPDATE_INTERVAL = 60000
+export const DRIVER_LOCATION_UPDATE_INTERVAL = 5000

@@ -72,7 +72,7 @@ const DriverDashboard = () => {
               <p>
                 Pickup: {booking.pickup.address} <br />
                 Dropoff: {booking.dropoff.address} <br />
-                Item Weight: {booking.itemWeight} <br />
+                Item Weight: {booking.itemWeight} kg <br />
                 Estimated Cost: ${booking.estimatedCost}
               </p>
               <Button
