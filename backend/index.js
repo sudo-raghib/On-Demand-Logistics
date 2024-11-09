@@ -2,6 +2,7 @@ const express = require('express')
 const { createServer } = require('http')
 const socketIo = require('socket.io')
 const cors = require('cors')
+require('dotenv').config()
 
 const connectDB = require('./config/db')
 const Booking = require('./models/Booking')

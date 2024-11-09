@@ -1,8 +1,11 @@
 const mongoose = require("mongoose");
 
+
+const connectionUrl=process.env.DB_URL||"mongodb://localhost:27017"
 const connectDB = async () => {
   try {
-    await mongoose.connect("mongodb://localhost:27017/logistics", {
+    await mongoose.connect(`${connectionUrl}/logistics`, {
+      authSource: 'admin', 
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
