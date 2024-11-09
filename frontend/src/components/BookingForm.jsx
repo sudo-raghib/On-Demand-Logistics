@@ -12,6 +12,7 @@ import {
 } from '@mui/material'
 import SearchDriver from './SearchDriver'
 import { VEHICLE_TYPES } from '../constants'
+import { API_BASE_URL } from '../../utils/config'
 
 // Dummy coordinates
 const dummyCoordinates = {
@@ -43,7 +44,7 @@ function BookingForm() {
       setLoading(true)
 
       const response = await postData(
-        'http://localhost:8080/api/bookings/get-estimate',
+        `${API_BASE_URL}/bookings/get-estimate`,
         {
           pickup: {
             address: pickup,
@@ -79,7 +80,7 @@ function BookingForm() {
       setLoading(true)
 
       const response = await postData(
-        'http://localhost:8080/api/bookings/request',
+      `${API_BASE_URL}/bookings/request`,
         {
           pickup: {
             address: pickup,

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Input, Button, FormControl, Box, styled } from '@mui/material'
 import { postData } from '../../utils/api'
-
+import { API_BASE_URL } from '../../utils/config'
 const StyledForm = styled('form')(() => {
   return {
     display: 'flex',
@@ -18,6 +18,7 @@ const CenteredHeading = styled('h2')(() => {
   }
 })
 
+
 const Login = () => {
   const [phone, setPhone] = useState('')
   const [password, setPassword] = useState('')
@@ -28,7 +29,7 @@ const Login = () => {
 
     try {
       const response = await postData(
-        'http://localhost:8080/api/users/login',
+        `${API_BASE_URL}/users/login`,
         {
           phone,
           password,

@@ -12,6 +12,7 @@ import {
   styled,
 } from '@mui/material'
 import { VEHICLE_TYPES } from '../constants'
+import { API_BASE_URL } from '../../utils/config'
 
 const StyledForm = styled('form')(() => {
   return {
@@ -41,7 +42,7 @@ const Signup = () => {
 
     try {
       const response = await postData(
-        'http://localhost:8080/api/users/register',
+        `${API_BASE_URL}/users/register`,
         {
           name,
           phone,

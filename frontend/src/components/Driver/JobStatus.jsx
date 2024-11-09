@@ -13,6 +13,7 @@ import {
 import { Link, useParams } from 'react-router-dom'
 import { JOB_STATUS } from '../../constants'
 import useCurrentLocation from '../../hooks/useCurrentLocation'
+import { API_BASE_URL } from '../../../utils/config'
 
 const StyledCard = styled(Card)(() => {
   return {
@@ -34,7 +35,7 @@ const JobStatus = () => {
     const fetchBookingDetails = async () => {
       try {
         const response = await getData(
-          `http://localhost:8080/api/bookings/${bookingId}`
+          `${API_BASE_URL}/bookings/${bookingId}`
         )
 
         const data = await response.json()
@@ -53,7 +54,7 @@ const JobStatus = () => {
   async function updateDriverLocation({ latitude, longitude }) {
     try {
       const response = await putData(
-        `http://localhost:8080/api/drivers/location/${bookingId}`,
+        `${API_BASE_URL}/drivers/location/${bookingId}`,
         { latitude, longitude }
       )
 
@@ -71,7 +72,7 @@ const JobStatus = () => {
 
     try {
       const response = await putData(
-        `http://localhost:8080/api/drivers/bookings/${bookingId}/status`,
+        `${API_BASE_URL}/drivers/bookings/${bookingId}/status`,
         { jobStatus: newStatus }
       )
 

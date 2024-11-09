@@ -33,7 +33,7 @@ const DriverDashboard = () => {
   const handleAcceptBooking = async (bookingId) => {
     try {
       const response = await putData(
-        `http://localhost:8080/api/drivers/accept/${bookingId}`
+        `https://on-demand-logistics.onrender.com/api/drivers/accept/${bookingId}`
       )
 
       if (!response.ok) {

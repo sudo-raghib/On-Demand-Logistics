@@ -1,5 +1,5 @@
 import io from "socket.io-client";
-
-const socket = io("http://localhost:8080");
+const BASE_URL=process.env.BASE_URL||"localhost:8080"
+const socket = io(BASE_URL);
 
 export default socket;

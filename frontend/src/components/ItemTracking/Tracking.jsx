@@ -6,6 +6,7 @@ import RealtimeTracking from './RealtimeTracking'
 import { getData } from '../../../utils/api'
 import { Box, Chip, Container } from '@mui/material'
 import socket from '../../../utils/socketConnection'
+import { API_BASE_URL } from '../../../utils/config'
 
 function Tracking() {
   const { bookingId } = useParams()
@@ -15,7 +16,7 @@ function Tracking() {
     const fetchBookingDetails = async () => {
       try {
         const response = await getData(
-          `http://localhost:8080/api/bookings/${bookingId}`
+          `${API_BASE_URL}/bookings/${bookingId}`
         )
 
         const data = await response.json()
