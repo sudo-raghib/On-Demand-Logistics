@@ -23,7 +23,7 @@ const Login = () => {
   const [phone, setPhone] = useState('')
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
-
+  console.log(API_BASE_URL)
   const handleLogin = async (e) => {
     e.preventDefault()
 
